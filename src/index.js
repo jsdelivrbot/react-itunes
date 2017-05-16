@@ -14,9 +14,10 @@ class App extends Component {
 			artist: ""
 		};
 
-		itunesSearch("beastie boys");
+		this.itunesSearch("beastie boys");
+	}
 
-		function itunesSearch(searchTerm) {
+		itunesSearch(searchTerm) {
 			Axios.get('https://itunes.apple.com/search?term='+ searchTerm)
 	 		  .then(function (res) {
 	 		 	console.log(res.data.results);
@@ -32,7 +33,7 @@ class App extends Component {
 		}
 
 
-	}
+	
 
 	render() {
 		return (
