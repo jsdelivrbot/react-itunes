@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 
-const AlbumListItem = (props) => {
-	
+const AlbumListItem = ({artist}) => {
+	console.log("artist = "+artist);
 	return (
-		<h1>{props.termResults}</h1>
+		<div>
+			<h1>{artist.artistName}</h1>
+			<h4>{artist.collectionName}</h4>
+			<img src={artist.artworkUrl100}/>
+			<h6>{artist.primaryGenreName} / {artist.copyright} </h6>
+		</div>
 		)
 
 

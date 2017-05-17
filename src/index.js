@@ -13,17 +13,17 @@ class App extends Component {
 			termResults: [],
 			artist: ""
 		};
-
+		
 		this.itunesSearch("beastie boys");
 	}
 
 		itunesSearch(searchTerm) {
-			Axios.get('https://itunes.apple.com/search?term='+ searchTerm)
+			var self=this;
+			Axios.get('https://itunes.apple.com/search?term='+ searchTerm+"&entity=album")
 	 		  .then(function (res) {
-	 		 	console.log(res.data.results);
-	 		 	console.log(res.data.results[0].artistName);
-			    this.setState({
-			    	termResults: res.data.results,
+	 		  	console.log(res.data.results);
+			    self.setState({
+			    	termResults: res.data.results[0],
 			    	artist: res.data.results[0].artistName
 			    });
 			  })
@@ -31,15 +31,12 @@ class App extends Component {
 			    console.log(err);
 			  });
 		}
-
-
 	
-
 	render() {
 		return (
 			<main>
 				<SearchBar />
-				<AlbumListItem artist = { this.state.termResults } />
+				<AlbumListItem artist = { this.state.termResults }  />
 			</main>
 		);
 	}
