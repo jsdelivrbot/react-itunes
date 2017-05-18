@@ -10,21 +10,20 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			termResults: [],
-			artist: ""
+			searchResults: []
 		};
 		
-		this.itunesSearch("beastie boys");
+		//this.iTunesSearch("Radiohead");
 	}
 
-		itunesSearch(searchTerm) {
+		iTunesSearch(searchTerm) {
 			var self=this;
-			Axios.get('https://itunes.apple.com/search?term='+ searchTerm+"&entity=album")
+			Axios.get('https://itunes.apple.com/search?term=' + searchTerm + '&entity=album')
 	 		  .then(function (res) {
 	 		  	console.log(res.data.results);
 			    self.setState({
-			    	termResults: res.data.results[0],
-			    	artist: res.data.results[0].artistName
+			    	searchResults: res.data.results[0],
+			    	searchTerm: searchTerm
 			    });
 			  })
 			  .catch(function (err) {
@@ -33,10 +32,13 @@ class App extends Component {
 		}
 	
 	render() {
+		const searchTerm = this.state.searchTerm;
+		
 		return (
 			<main>
-				<SearchBar />
-				<AlbumListItem artist = { this.state.termResults }  />
+				<SearchBar onChange={this.iTunesSearch} />
+				<h3>Search Results for: {this.state.searchTerm}</h3>
+				<AlbumListItem album = { this.state.searchResults }  />
 			</main>
 		);
 	}
